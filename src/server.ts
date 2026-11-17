@@ -1,7 +1,7 @@
 import http from "http";
-import { createApp } from "./app.js";
-import { env } from "./common/config/env.js";
-import { db } from "./common/knex/knex.js";
+import { createApp } from "./app.ts";
+import { env } from "./common/config/env.ts";
+import { db } from "./common/knex/knex.ts";
 // import dotenv from "dotenv";
 
 const app = createApp();
