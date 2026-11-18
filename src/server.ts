@@ -2,13 +2,13 @@ import http from "http";
 import { createApp } from "./app.ts";
 import { env } from "./common/config/env.ts";
 import { db } from "./common/knex/knex.ts";
+import { logger } from "./common/logger/logger.ts";
 // import dotenv from "dotenv";
 
 const app = createApp();
-
 const server = http.createServer(app);
 server.listen(env.port, () => {
-  console.log(`Server is running on port ${env.port}`);
+  logger.info(`Server is running on port ${env.port}`);
 });
 
 async function shutdown() {
