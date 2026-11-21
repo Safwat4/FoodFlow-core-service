@@ -1,24 +1,30 @@
-import type {Request, Response, NextFunction} from "express";
-import {logger} from "../logger/logger.ts";
-import type {AppError} from "./AppError.ts";
+import type { Request, Response, NextFunction } from "express";
+import { logger } from "../logger/logger.ts";
+import type { AppError } from "./AppError.ts";
+import { sanitizeData } from "../logger/sanitize.ts";
 
-export function errorHandler(err: AppError, req: Request, res: Response, _next: NextFunction) {
-    const operational = err.isOperational;
+export function errorHandler(
+  err: AppError,
+  req: Request,
+  res: Response,
+  _next: NextFunction,
+) {
+  const operational = err.isOperational;
 
-    logger.error(err.message, {
-        statusCode: err.statusCode,
-        stack: err.stack,
-        operational: operational,
-        body: req.body,
-        correlationId: req.correlationId
-    })
+  logger.error(err.message, {
+    statusCode: err.statusCode,
+    stack: err.stack,
+    operational: operational,
+    body: sanitizeData(req.body),
+    correlationId: req.correlationId,
+  });
 
-    if(operational){
-        return res.status(err.statusCode).json({
-            error: err.message,
-        })
-    }
-    return res.status(500).json({
-        error: 'Something went wrong',
-    })
+  if (operational) {
+    return res.status(err.statusCode).json({
+      error: err.message,
+    });
+  }
+  return res.status(500).json({
+    error: "Something went wrong",
+  });
 }
