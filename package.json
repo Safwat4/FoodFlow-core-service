@@ -5,7 +5,7 @@
     "build": "tsc",
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js",
-    "migrate": "knex --knexfile src/db/knexfile.ts migrate:latest"
+    "migrate": "knex --knexfile src/common/knex/knexfile.ts migrate:latest"
   },
   "dependencies": {
     "@types/bcrypt": "^6.0.0",
