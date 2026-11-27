@@ -46,4 +46,5 @@ export const env = {
     accessExpiresIn: parsed.ACCESS_EXPIRES_IN,
     refreshExpiresIn: parsed.REFRESH_EXPIRES_IN,
   },
+  isProduction: process.env.NODE_ENV === "production",
 };
